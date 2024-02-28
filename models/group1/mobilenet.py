@@ -7,7 +7,7 @@ __all__ = ['MobileNetV2', 'mobilenet_v2']
 
 
 model_urls = {
-    'mobilenet_v2': '/home/zijian/.cache/torch/hub/checkpoints/mobilenet_v2-b0353104.pth',
+    'mobilenet_v2': 'https://download.pytorch.org/models/mobilenet_v2-b0353104.pth',
 }
 
 
@@ -183,7 +183,7 @@ def mobilenet_v2(pretrained=False, progress=True, **kwargs):
     """
     model = MobileNetV2(**kwargs)
     if pretrained:
-        state_dict = torch.load(model_urls['mobilenet_v2'], map_location='cpu')
+        state_dict = torch.hub.load_state_dict_from_url(model_urls['mobilenet_v2'], map_location='cpu')
         model.load_state_dict(state_dict)
         print("Pretrained Models Loaded")
     return model

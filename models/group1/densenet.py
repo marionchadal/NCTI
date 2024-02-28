@@ -12,9 +12,9 @@ from torch.jit.annotations import List
 __all__ = ['DenseNet', 'densenet121', 'densenet169', 'densenet201']
 
 model_urls = {
-    'densenet121': '/home/zijian/.cache/torch/hub/checkpoints/densenet121-a639ec97.pth',
-    'densenet169': '/home/zijian/.cache/torch/hub/checkpoints/densenet169-b2777c0a.pth',
-    'densenet201': '/home/zijian/.cache/torch/hub/checkpoints/densenet201-c1103571.pth',
+    'densenet121': 'https://download.pytorch.org/models/densenet121-a639ec97.pth',
+    'densenet169': 'https://download.pytorch.org/models/densenet169-b2777c0a.pth',
+    'densenet201': 'https://download.pytorch.org/models/densenet201-c1103571.pth',
 }
 
 
@@ -199,7 +199,7 @@ def _load_state_dict(model, model_url, progress):
     pattern = re.compile(
         r'^(.*denselayer\d+\.(?:norm|relu|conv))\.((?:[12])\.(?:weight|bias|running_mean|running_var))$')
 
-    state_dict = torch.load(model_url, map_location='cpu')
+    state_dict = torch.hub.load_state_dict_from_url(model_url, map_location='cpu')
     for key in list(state_dict.keys()):
         res = pattern.match(key)
         if res:

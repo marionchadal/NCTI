@@ -11,7 +11,7 @@ __all__ = ['GoogLeNet', 'googlenet', "GoogLeNetOutputs", "_GoogLeNetOutputs"]
 
 model_urls = {
     # GoogLeNet ported from TensorFlow
-    'googlenet': '/home/zijian/.cache/torch/hub/checkpoints/googlenet-1378be20.pth',
+    'googlenet': 'https://download.pytorch.org/models/googlenet-1378be20.pth',
 }
 
 GoogLeNetOutputs = namedtuple('GoogLeNetOutputs', ['logits', 'aux_logits2', 'aux_logits1'])
@@ -47,7 +47,7 @@ def googlenet(pretrained=False, progress=True, **kwargs):
         kwargs['aux_logits'] = True
         kwargs['init_weights'] = False
         model = GoogLeNet(**kwargs)
-        state_dict = torch.load(model_urls['googlenet'], map_location='cpu')
+        state_dict = torch.hub.load_state_dict_from_url(model_urls['googlenet'], map_location='cpu')
         model.load_state_dict(state_dict)
         print("Pretrained Models Loaded")
         if not original_aux_logits:

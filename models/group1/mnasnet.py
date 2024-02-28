@@ -8,7 +8,7 @@ __all__ = ['MNASNet', 'mnasnet0_5', 'mnasnet0_75', 'mnasnet1_0', 'mnasnet1_3']
 
 _MODEL_URLS = {
     "mnasnet1_0":
-    "/home/zijian/.cache/torch/hub/checkpoints/mnasnet1.0_top1_73.512-f206786ef8.pth",
+    "https://download.pytorch.org/models/mnasnet1.0_top1_73.512-f206786ef8.pth",
 }
 
 # Paper suggests 0.9997 momentum, for TensorFlow. Equivalent PyTorch momentum is
@@ -194,7 +194,7 @@ def _load_pretrained(model_name, model, progress):
             "No checkpoint is available for model type {}".format(model_name))
     checkpoint_url = _MODEL_URLS[model_name]
     model.load_state_dict(
-        torch.load(checkpoint_url, map_location='cpu'))
+        torch.hub.load_state_dict_from_url(checkpoint_url, map_location='cpu'))
     print("Pretrained Models Loaded")
 
 

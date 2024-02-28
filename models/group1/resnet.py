@@ -8,10 +8,10 @@ __all__ = ['ResNet', 'resnet34', 'resnet50', 'resnet101',
 
 
 model_urls = {
-    'resnet34': '/home/zijian/.cache/torch/hub/checkpoints/resnet34-333f7ec4.pth',
-    'resnet50': '/home/zijian/.cache/torch/hub/checkpoints/resnet50-19c8e357.pth',
-    'resnet101': '/home/zijian/.cache/torch/hub/checkpoints/resnet101-5d3b4d8f.pth',
-    'resnet152': '/home/zijian/.cache/torch/hub/checkpoints/resnet152-b121ed2d.pth',
+    'resnet34': 'https://download.pytorch.org/models/resnet34-333f7ec4.pth',
+    'resnet50': 'https://download.pytorch.org/models/resnet50-19c8e357.pth',
+    'resnet101': 'https://download.pytorch.org/models/resnet101-5d3b4d8f.pth',
+    'resnet152': 'https://download.pytorch.org/models/resnet152-b121ed2d.pth',
 }
 
 
@@ -217,7 +217,7 @@ class ResNet(nn.Module):
 def _resnet(arch, block, layers, pretrained, progress, **kwargs):
     model = ResNet(block, layers, **kwargs)
     if pretrained:
-        state_dict = torch.load(model_urls[arch],
+        state_dict = torch.hub.load_state_dict_from_url(model_urls[arch],
                                               map_location='cpu')
         model.load_state_dict(state_dict)
         print("Pretrained Models Loaded")

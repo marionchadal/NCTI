@@ -13,7 +13,7 @@ __all__ = ['Inception3', 'inception_v3', 'InceptionOutputs', '_InceptionOutputs'
 
 model_urls = {
     # Inception v3 ported from TensorFlow
-    'inception_v3_google': '/home/zijian/.cache/torch/hub/checkpoints/inception_v3_google-1a9a5a14.pth',
+    'inception_v3_google': 'https://download.pytorch.org/models/inception_v3_google-1a9a5a14.pth',
 }
 
 InceptionOutputs = namedtuple('InceptionOutputs', ['logits', 'aux_logits'])
@@ -37,7 +37,7 @@ def inception_v3(pretrained=False, progress=True, **kwargs):
         progress (bool): If True, displays a progress bar of the download to stderr
         aux_logits (bool): If True, add an auxiliary branch that can improve training.
             Default: *True*
-        transform_input (bool): If True, preprocesses the input according to the method with which it
+        transform_input (bool): If True, preprocesses the input accordintorch.hub.load_state_dict_from_urlg to the method with which it
             was trained on ImageNet. Default: *False*
     """
     if pretrained:
@@ -50,7 +50,7 @@ def inception_v3(pretrained=False, progress=True, **kwargs):
             original_aux_logits = True
         kwargs['init_weights'] = False  # we are loading weights from a pretrained model
         model = Inception3(**kwargs)
-        state_dict = torch.load(model_urls['inception_v3_google'],
+        state_dict = torch.hub.load_state_dict_from_url(model_urls['inception_v3_google'],
                                               map_location='cpu')
         model.load_state_dict(state_dict)
         print("Pretrained Models Loaded")
